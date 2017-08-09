@@ -9,16 +9,31 @@ repositories {
     mavenCentral()
 }
 
+import org.gradle.internal.os.OperatingSystem
+
+switch ( OperatingSystem.current() ) {
+    case OperatingSystem.WINDOWS:
+        project.ext.lwjglNatives = "natives-windows"
+        break
+    case OperatingSystem.LINUX:
+        project.ext.lwjglNatives = "natives-linux"
+        break
+    case OperatingSystem.MAC_OS:
+        project.ext.lwjglNatives = "natives-macos"
+        break
+}
+
+project.ext.lwjglVersion = "3.1.2"
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-
-    // https://mvnrepository.com/artifact/org.lwjgl/lwjgl
-    compile group: 'org.lwjgl', name: 'lwjgl', version: '3.1.2'
-
-    // https://mvnrepository.com/artifact/org.lwjgl/lwjgl-glfw
-    compile group: 'org.lwjgl', name: 'lwjgl-glfw', version: '3.1.2'
-
-    // https://mvnrepository.com/artifact/org.lwjgl/lwjgl-opengl
-    compile group: 'org.lwjgl', name: 'lwjgl-opengl', version: '3.1.2'
-
+    compile "org.lwjgl:lwjgl:${lwjglVersion}"
+    compile "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
+    compile "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
+    runtime "org.lwjgl:lwjgl:${lwjglVersion}:${lwjglNatives}"
+    runtime "org.lwjgl:lwjgl-glfw:${lwjglVersion}:${lwjglNatives}"
+    runtime "org.lwjgl:lwjgl-opengl:${lwjglVersion}:${lwjglNatives}"
 }
