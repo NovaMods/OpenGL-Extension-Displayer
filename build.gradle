@@ -2,6 +2,9 @@ group 'com.continuum'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "Driver"
 
 sourceCompatibility = 1.8
 
